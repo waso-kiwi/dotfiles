@@ -1,3 +1,13 @@
+## Cachy OS - Niri DMS
+
+```
+sudo pacman -S niri xwayland-satellite wireplumber xdg-desktop-portal xdg-desktop-portal-gnome greetd
+```
+
+`curl -fsSL https://install.danklinux.com | sh`
+
+
+
 ## DMS
 
 git clone https://github.com/waso-kiwi/dotfiles.git ~/.dotfiles
@@ -18,6 +28,11 @@ chmod +x setup-app.sh
 
 ~/.dotfiles/setup-app.sh
 
+
+
+
+
+-------
 
 ## Noctalia
 git clone https://github.com/waso-kiwi/dotfiles.git ~/.dotfiles
