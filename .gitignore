@@ -1,0 +1,4 @@
+# Auto-cloned plugin repos managed by DankMaterialShell itself — not user config.
+# Reinstall plugins from within the shell's plugin manager after bootstrap.
+config/DankMaterialShell/plugins/.repos/
+config/DankMaterialShell/.firstlaunch
