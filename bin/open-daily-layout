@@ -47,6 +47,52 @@ place_or_launch main-3 '^[Ss]team$' steam
 place_or_launch laptop-1 '^[Dd]iscord$' discord
 place_or_launch laptop-2 '^(thunderbird|[Nn]et\.thunderbird\.Thunderbird)$' thunderbird
 
+# Set selected apps to full column width. This is done here rather than in a
+# window rule so their normal launch behavior remains unchanged.
+set_full_width() {
+    local app_id_pattern="$1"
+    local current_windows
+    local window_id
+
+    current_windows="$(niri msg -j windows 2>/dev/null)" || return 1
+
+    local window_ids
+    window_ids="$(
+        jq -r --arg pattern "$app_id_pattern" \
+            '.[] | select(.app_id | test($pattern)) | .id' <<<"$current_windows"
+    )"
+    [[ -n "$window_ids" ]] || return 1
+
+    while IFS= read -r window_id; do
+        niri msg action focus-window --id "$window_id" >/dev/null
+        niri msg action set-column-width "100%" >/dev/null
+    done <<<"$window_ids"
+}
+
+# Existing windows are ready immediately; newly launched apps may need a few
+# seconds before Niri can resize them.
+firefox_wide=false
+discord_wide=false
+thunderbird_wide=false
+resize_deadline=$((SECONDS + 15))
+
+while ((SECONDS <= resize_deadline)); do
+    if [[ "$firefox_wide" == false ]] && set_full_width '^org\.mozilla\.firefox$'; then
+        firefox_wide=true
+    fi
+    if [[ "$discord_wide" == false ]] && set_full_width '^[Dd]iscord$'; then
+        discord_wide=true
+    fi
+    if [[ "$thunderbird_wide" == false ]] && set_full_width '^(thunderbird|[Nn]et\.thunderbird\.Thunderbird)$'; then
+        thunderbird_wide=true
+    fi
+
+    if [[ "$firefox_wide" == true && "$discord_wide" == true && "$thunderbird_wide" == true ]]; then
+        break
+    fi
+    sleep 0.25
+done
+
 # Finish on the primary workspace instead of whichever app happened to open last.
 niri msg action focus-workspace main-1 >/dev/null
-notify "Apps opened and placed on their workspaces."
+notify "Apps opened, placed, and resized."
