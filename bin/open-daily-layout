@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+set -u
+
+notify() {
+    if command -v notify-send >/dev/null 2>&1; then
+        notify-send "Daily app layout" "$1" || true
+    fi
+}
+
+if ! windows_json="$(niri msg -j windows 2>/dev/null)"; then
+    notify "Could not connect to Niri."
+    exit 1
+fi
+
+# Keep the named workspaces at the requested numeric positions on each output.
+niri msg action move-workspace-to-index 1 --reference main-1 >/dev/null
+niri msg action move-workspace-to-index 2 --reference main-2 >/dev/null
+niri msg action move-workspace-to-index 3 --reference main-3 >/dev/null
+niri msg action move-workspace-to-index 1 --reference laptop-1 >/dev/null
+niri msg action move-workspace-to-index 2 --reference laptop-2 >/dev/null
+
+place_or_launch() {
+    local workspace="$1"
+    local app_id_pattern="$2"
+    shift 2
+
+    local found=false
+    local window_id
+    while IFS= read -r window_id; do
+        [[ -z "$window_id" ]] && continue
+        found=true
+        niri msg action move-window-to-workspace \
+            --window-id "$window_id" --focus false "$workspace" >/dev/null
+    done < <(
+        jq -r --arg pattern "$app_id_pattern" \
+            '.[] | select(.app_id | test($pattern)) | .id' <<<"$windows_json"
+    )
+
+    if [[ "$found" == false ]]; then
+        "$@" >/dev/null 2>&1 &
+    fi
+}
+
+place_or_launch main-1 '^org\.mozilla\.firefox$' firefox
+place_or_launch main-2 '^[Cc]hat[Gg][Pp][Tt]$' chatgpt
+place_or_launch main-3 '^[Ss]team$' steam
+place_or_launch laptop-1 '^[Dd]iscord$' discord
+place_or_launch laptop-2 '^(thunderbird|[Nn]et\.thunderbird\.Thunderbird)$' thunderbird
+
+# Finish on the primary workspace instead of whichever app happened to open last.
+niri msg action focus-workspace main-1 >/dev/null
+notify "Apps opened and placed on their workspaces."

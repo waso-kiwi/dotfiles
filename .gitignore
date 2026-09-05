@@ -2,3 +2,8 @@
 # Reinstall plugins from within the shell's plugin manager after bootstrap.
 config/DankMaterialShell/plugins/.repos/
 config/DankMaterialShell/.firstlaunch
+
+# Third-party plugin checkouts and DMS version markers are restored by DMS.
+config/DankMaterialShell/plugins/calculator/
+config/DankMaterialShell/plugins/quickCapture/
+config/DankMaterialShell/.changelog-*

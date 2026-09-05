@@ -1,0 +1,43 @@
+// Daily app layout: persistent workspaces and automatic app placement.
+workspace "main-1" {
+    open-on-output "GIGA-BYTE TECHNOLOGY CO., LTD. M27Q P 23313B000577"
+}
+workspace "main-2" {
+    open-on-output "GIGA-BYTE TECHNOLOGY CO., LTD. M27Q P 23313B000577"
+}
+workspace "main-3" {
+    open-on-output "GIGA-BYTE TECHNOLOGY CO., LTD. M27Q P 23313B000577"
+}
+workspace "laptop-1" {
+    open-on-output "Chimei Innolux Corporation 0x162F Unknown"
+}
+workspace "laptop-2" {
+    open-on-output "Chimei Innolux Corporation 0x162F Unknown"
+}
+
+window-rule {
+    match app-id=r#"^org\.mozilla\.firefox$"#
+    open-on-workspace "main-1"
+}
+window-rule {
+    match app-id=r#"^[Cc]hat[Gg][Pp][Tt]$"#
+    open-on-workspace "main-2"
+}
+window-rule {
+    match app-id=r#"^[Ss]team$"#
+    open-on-workspace "main-3"
+}
+window-rule {
+    match app-id=r#"^[Dd]iscord$"#
+    open-on-workspace "laptop-1"
+}
+window-rule {
+    match app-id=r#"^(thunderbird|[Nn]et\.thunderbird\.Thunderbird)$"#
+    open-on-workspace "laptop-2"
+}
+
+binds {
+    Mod+Shift+A repeat=false hotkey-overlay-title="Open Daily App Layout" {
+        spawn "/home/eli/.local/bin/open-daily-layout";
+    }
+}

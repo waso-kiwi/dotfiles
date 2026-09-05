@@ -78,6 +78,9 @@ input {
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
     // focus-follows-mouse max-scroll-amount="80%"
 }
+clipboard {
+    disable-primary
+}
 // You can configure outputs by their name, which you can find
 // by running `niri msg outputs` while inside a niri instance.
 // The built-in laptop monitor is usually called "eDP-1".
@@ -286,6 +289,7 @@ recent-windows {
 }
 
 // Include dms files
+include optional=true "startup-layout.kdl"
 include optional=true "dms/colors.kdl"
 include optional=true "dms/layout.kdl"
 include optional=true "dms/alttab.kdl"

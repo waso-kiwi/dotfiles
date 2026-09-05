@@ -94,6 +94,7 @@ binds {
     Mod+Q repeat=false { close-window; }
     Mod+R { switch-preset-column-width; }
     Mod+Right { focus-column-right; }
+    Mod+Shift+Backslash { set-window-height "+10%"; }
     Mod+Shift+Ctrl+Down { move-column-to-monitor-down; }
     Mod+Shift+Ctrl+H { move-column-to-monitor-left; }
     Mod+Shift+Ctrl+J { move-column-to-monitor-down; }
@@ -103,7 +104,6 @@ binds {
     Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
     Mod+Shift+Ctrl+Up { move-column-to-monitor-up; }
     Mod+Shift+Down { move-window-down; }
-    Mod+Shift+Equal { set-window-height "+10%"; }
     Mod+Shift+F { fullscreen-window; }
     Mod+Shift+H { move-column-left; }
     Mod+Shift+J { move-window-down; }

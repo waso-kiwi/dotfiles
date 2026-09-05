@@ -1,5 +1,20 @@
 {
   "dankKDEConnect": {
+    "enabled": true,
+    "selectedDeviceId": "bb3446af99fc4cf0903e28d2ad800ae9"
+  },
+  "quickCapture": {
     "enabled": true
+  },
+  "dankLauncherKeys": {
+    "enabled": true
+  },
+  "calculator": {
+    "enabled": true,
+    "trigger": "="
+  },
+  "dankBitwarden": {
+    "enabled": true,
+    "trigger": "["
   }
 }

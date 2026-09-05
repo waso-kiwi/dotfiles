@@ -1,3 +1,11 @@
 [user]
 	name = WasoKiwi
 	email = 139231691+waso-kiwi@users.noreply.github.com
+[credential "https://github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
+[init]
+	defaultBranch = main
