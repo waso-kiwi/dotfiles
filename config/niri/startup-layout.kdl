@@ -37,6 +37,7 @@ window-rule {
 }
 
 binds {
+    Mod+Shift+Semicolon hotkey-overlay-title="Increase width by 10%" { set-column-width "+10%"; }
     Mod+Shift+A repeat=false hotkey-overlay-title="Open Daily App Layout" {
         spawn "/home/eli/.local/bin/open-daily-layout";
     }
