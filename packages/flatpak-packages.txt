@@ -1,3 +1,7 @@
+com.actualbudget.actual
 com.bitwarden.desktop
+com.heroicgameslauncher.hgl
 com.obsproject.Studio
 md.obsidian.Obsidian
+org.onlyoffice.desktopeditors
+org.prismlauncher.PrismLauncher
